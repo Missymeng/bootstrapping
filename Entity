@@ -1,0 +1,86 @@
+package dataReuse;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class Entity {
+	private String entity;
+	private double hasUpCase;
+	private double hasNumber;
+	private double leftConHasTrig;
+	private double rightConHasTrig;
+	private double score;
+	private ArrayList<String> patternList;
+	
+	public Entity(String text){
+		entity = text;
+		hasUpCase = 0;
+		hasNumber = 0;
+		leftConHasTrig = 0;
+		rightConHasTrig = 0;
+		score = 0;
+		patternList = new ArrayList<String>();
+	}
+	
+	public void addPatterns(String text){
+		patternList.add(text);
+	}
+	
+	public void setUpCase(double value){
+		hasUpCase = value;
+	}
+	
+	public void setVersionNumber(double value){
+		hasNumber = value;
+	}
+	
+	public void setLeftTrigger(double value){
+		leftConHasTrig = value;
+	}
+	
+	public void setRightTrigger(double value){
+		rightConHasTrig = value;
+	}
+	
+	public void setScore(double wordScore){
+		score = wordScore;
+	}
+	
+	public double getUpCase(){
+		return hasUpCase;
+	}
+	
+	public double getVersionNumber(){
+		return hasNumber;
+	}
+	
+	public double getLeftTrigger(){
+		return leftConHasTrig;
+	}
+	
+	public double getRightTrigger(){
+		return rightConHasTrig;
+	}
+	
+	public double getScore(){
+		return score;
+	}
+	
+	public int countPatterns(){
+		return patternList.size();
+	}
+	
+	public Iterator<String> getPatterns(){
+		return patternList.iterator();
+	}
+	
+	public void clearPatterns(){
+		patternList.clear();
+	}
+	
+	public boolean containPattern(String text){
+		return patternList.contains(text);
+	}
+	
+
+}
