@@ -1,0 +1,27 @@
+package dataReuse;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class Targets {
+	private int lineNum;
+	private ArrayList<String> targetsList;
+	
+	public Targets(int i){
+		lineNum = i;
+		targetsList = new ArrayList<String>();
+	}
+	public void addTargets(String target){
+		if(!containTargets(target)){
+			targetsList.add(target);
+		}
+		
+	}
+	public boolean containTargets(String target){
+		return targetsList.contains(target);
+	}
+	public Iterator<String> getTargets(){
+		return targetsList.iterator();
+	}
+
+}
