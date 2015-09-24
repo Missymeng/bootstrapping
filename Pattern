@@ -1,0 +1,186 @@
+package dataReuse;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+
+public class Pattern {
+	private String patStr;
+	private double score;
+	private double confScore;
+	private boolean hasTrigWord;
+	
+	private ArrayList<String> postiveWords;
+	private ArrayList<String> negtiveWords;
+	private ArrayList<String> extractedWords;
+	
+	public Pattern(String text){
+		patStr = text;
+		score = 0.0;
+		confScore = 0.0;
+		hasTrigWord = false;
+		postiveWords = new ArrayList<String>();
+		negtiveWords = new ArrayList<String>();
+		extractedWords = new ArrayList<String>();
+	}
+	
+	public String getPattern(){
+		return patStr;
+	}
+	
+	public double getPatScore(){
+		return score;
+	}
+	
+	public double getConfScore(){
+		return confScore;
+	}
+	
+	
+	public boolean getTrigWordFlag(){
+		return hasTrigWord;
+	}
+	
+	public void setPatScore(double s){
+		score = s;
+	}
+	
+	public void setTrigWordFlag(boolean flag){
+		hasTrigWord = flag;
+	}
+	
+	public void setConfScore(double s){
+		confScore = s;
+	}
+	
+	
+	public void addPosWords(String text){
+		postiveWords.add(text);
+	}
+	
+	
+	public void addNegWords(String text){
+		negtiveWords.add(text);
+	}
+	
+	public void addExtWords(String text){
+		extractedWords.add(text);
+	}
+	
+	public int countPosWords(){
+		return postiveWords.size();
+	}
+	
+	public boolean containUnlabeledEntity(String softwareName){
+		if(extractedWords.contains(softwareName)){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+	
+	public void removeUnlabeledEntity(String softwareName){
+		
+		while(extractedWords.contains(softwareName)){
+			extractedWords.remove(softwareName);	
+		}
+		
+		/*for(Iterator<String> it = getExtWords();it.hasNext();){
+			String ent = it.next();
+			if(ent.equals(softwareName)){
+				it.remove();
+			}
+		}
+	*/
+		
+	}
+	
+	public String getExtElement(int index){
+		
+		if (index >= countExtWords()){
+			return null;
+		}else{
+			return extractedWords.get(index);
+		}
+	}
+	
+	public String getNegElement(int index){
+		if (index >= countNegWords()){
+			return null;
+		}else{
+			return negtiveWords.get(index);
+		}
+	}
+	
+	public void setExtElement(int index, String newWords){
+		extractedWords.set(index, newWords);
+	}
+	
+	public void setNegElement(int index, String newWords){
+		negtiveWords.set(index, newWords);
+	}
+	
+      public int numDistinctNeg(){
+		
+		int size = countNegWords();
+		if (size == 0){
+			return 0;
+		}else{
+			HashSet<String> temp = new HashSet<String>();
+			for (int i = 0; i < size; i++){
+				temp.add(negtiveWords.get(i).toLowerCase());
+			}
+			size = temp.size();
+			//temp.clear();
+			return size;
+		}
+		
+		
+		
+	}
+	
+	public int numDistinctPos(){
+		
+		int size = countPosWords();
+		if (size == 0){
+			return 0;
+		}else{
+			HashSet<String> temp = new HashSet<String>();
+			for (int i = 0; i < countPosWords(); i++){
+				temp.add(postiveWords.get(i).toLowerCase());
+			}
+			size = temp.size();
+			//temp.clear();
+			return size;
+		}
+		
+		
+		
+	}
+	
+	
+	
+	public int countNegWords(){
+		return negtiveWords.size();
+	}
+	
+	
+	public int countExtWords(){
+		return extractedWords.size();
+	}
+	
+	public Iterator<String> getPosWods(){
+		return postiveWords.iterator();
+	}
+	
+	public Iterator<String> getNegWords(){
+		return negtiveWords.iterator();
+	}
+	
+	public Iterator<String> getExtWords(){
+		return extractedWords.iterator();
+	}
+	
+
+}
