@@ -1,0 +1,69 @@
+package dataReuse;
+
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+
+public class SortTokens {
+	private static String[] myText;
+	private static String inDir = "/Users/xuelianpan/Documents/workspace/parseXMLFromURL/data/result";
+	
+	//private static String inDir = "/Users/xuelianpan/Documents/workspace/parseXMLFromURL/data/sentences/input";
+	private static HashSet<String> wordSet;
+	//private static String outDir =  "/Users/xuelianpan/Documents/workspace/parseXMLFromURL/data/sentences/output";
+	private static String outDir = "/Users/xuelianpan/Documents/workspace/parseXMLFromURL/data/result";
+
+	public static void main(String[] args) {
+		String fileName = inDir + "/target.txt";
+		Database db = new Database(fileName);
+		
+		Iterator<String> textIt = db.getIterator();
+		wordSet = new HashSet<String>();
+		while(textIt.hasNext()){
+			//String str = textIt.next().toLowerCase().trim();
+			String str = textIt.next().trim();
+			wordSet.add(str);
+		}
+		
+		myText = new String[wordSet.size()];
+		Iterator<String> setIt = wordSet.iterator();
+		int i = 0;
+		while(setIt.hasNext()){
+			String str = setIt.next().trim();
+			myText[i] = str;
+			i++;
+		}
+		
+		java.util.Arrays.sort(myText);
+		print2TEXT();
+		//searchTest();
+		System.out.println("finish");
+
+	}
+	
+	private static void searchTest(){
+		String str = "%";
+		for (int i = 0; i < myText.length; i++){
+			if(myText[i].equals("`")){
+				System.out.println(true);
+			}
+		}
+	}
+	private static void print2TEXT(){
+		String filename = outDir + "/result.txt";
+		try{
+			PrintWriter wr = new PrintWriter(new FileWriter(filename));
+			for(int i = 0; i < myText.length; i++){
+				if(myText[i] != null && !myText[i].equals(""))
+				wr.println(myText[i]);
+			}
+			
+			wr.close();
+		}catch(Exception ex){
+			   ex.printStackTrace();
+		  }
+	}
+
+}
